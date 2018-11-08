@@ -6,7 +6,7 @@ function SimpleStaticServer() {
   const path = require("path");
   
   const config = {
-    "port": "9000"
+      "port": "9000"
     , "allowedMethods": ["GET"]
     , "routes": {
       "root": {
@@ -122,7 +122,7 @@ function SimpleStaticServer() {
     }
     , end: function() {
       console.log(config["msgExit"]);
-      process.exit();
+      server.close();
     }
     
   };
