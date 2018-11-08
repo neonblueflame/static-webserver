@@ -16,10 +16,10 @@ var SimpleStaticServerTest = function() {
   
   function isPass(condition, testName) {
     if (condition == true)
-      console.log(testName + " passed");
+      console.log("Test passed");
       
     else
-      console.log(testName + " failed");
+      console.log("Test failed");
   }
   
   function processHTTP(url, testName) {
@@ -30,7 +30,7 @@ var SimpleStaticServerTest = function() {
         console.log(chunk.toString());
         resultProcess = chunk.toString();
         
-        event.emit("processDone");
+        event.emit(testName);
       });
       
       resp.on("end", () => {
@@ -42,39 +42,49 @@ var SimpleStaticServerTest = function() {
   return {
     loadFileRootURL: function() {
       let url = "http://localhost:9000"
-      processHTTP(url, arguments.callee.name);
+      let testName = arguments.callee.name;
       
-      event.on("processDone", function() {
-        isPass(resultProcess  == resultExpected, arguments.callee.name);
+      processHTTP(url, testName);
+      
+      event.on(testName, function() {
+        isPass(resultProcess  == resultExpected);
       });
     }
-    , loadFileNormalURL: function() {
+  , loadFileNormalURL: function() {
       let url = "http://localhost:9000/testText.txt"
-      processHTTP(url, arguments.callee.name);
+      let testName = arguments.callee.name;
       
-      event.on("processDone", function() {
-        isPass(resultProcess  == resultExpected, arguments.callee.name);
+      processHTTP(url, testName);
+      
+      event.on(testName, function() {
+        isPass(resultProcess  == resultExpected);
       });
     }
-    , loadFileInvalidURL: function() {
+  , loadFileInvalidURL: function() {
       let url = "http://localhost:9000/testText.js"
-      processHTTP(url, arguments.callee.name);
+      let testName = arguments.callee.name;
       
-      event.on("processDone", function() {
-        isPass(resultProcess  == "404 error", arguments.callee.name);
+      processHTTP(url, testName);
+      
+      event.on(testName, function() {
+        isPass(resultProcess  == "404 error");
       });
     }
-    , paragraphValue: function(value) {
+  , paragraphValue: function(value) {
       let url = "http://localhost:9000/?paragraph=" + value;
-      processHTTP(url, arguments.callee.name);
+      let testName = arguments.callee.name + value;
       
-      event.on("processDone", function() {
+      processHTTP(url, testName);
+      
+      event.on(testName, function() {
         isPass(resultProcess  == 
           resultExpected.substring(
-              0
-            , (resultExpected.indexOf("\n") * value)
-          ), arguments.callee.name);
+            0
+          , (resultExpected.indexOf("\n") * value)
+          ));
       });
+      
+      console.log(resultProcess);
     }
   };
   
