@@ -1,4 +1,4 @@
-# static-webserver
+# Simple static server
 A mini static server made using Node.JS
 
 To run the server, import SimpleStaticServer and create its instance. Then, call start() using its instance. 
