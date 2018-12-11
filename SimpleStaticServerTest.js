@@ -1,4 +1,19 @@
-
+/**
+* Function for testing SimpleStaticServer.
+* To run this, go to SimpleStaticServer root directory, 
+* enter "node SimpleStaticServerTest.js in a terminal.
+*
+* To create a new test, create a new function in 
+* SimpleStaticServerTest's exposed area (under return). 
+* If test is going to be done on HTTP response, create a  * message subject for the test and pass it as argument in 
+* processHTTP(). This function will emit an event with the 
+* message subject argument and the test function should 
+* listen to it, passing a callback function.
+*
+* dateCreated: 20181105
+* dateModified: 20181211
+* version: 1.0.4
+*/
 var SimpleStaticServerTest = function() {
 
   const SimpleStaticServer = require ("./SimpleStaticServer.js");
@@ -14,7 +29,7 @@ var SimpleStaticServerTest = function() {
   let resultExpected = fs.readFileSync("./testText.txt").toString();
   let resultProcess = null;
   
-  function isPass(condition, testName) {
+  function isPass(condition) {
     if (condition == true)
       console.log("Test passed");
       
@@ -22,19 +37,19 @@ var SimpleStaticServerTest = function() {
       console.log("Test failed");
   }
   
-  function processHTTP(url, testName) {
+  function processHTTP(url, subj) {
     http.get(url, (resp) => {
-      console.log(testName + " : Start");
+      console.log(subj + " : Start");
       
       resp.on("data", (chunk) => {
         console.log(chunk.toString());
         resultProcess = chunk.toString();
         
-        event.emit(testName);
+        event.emit(subj);
       });
       
       resp.on("end", () => {
-        console.log(testName + " : End");
+        console.log(subj + " : End");
       });
     });
   }

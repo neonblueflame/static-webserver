@@ -1,0 +1,21 @@
+{
+  "name": "SimpleStaticServer",
+  "version": "1.0.4",
+  "description": "A mini static server made using Node.JS",
+  "main": "Main.js",
+  "scripts": {
+    "start": "node Main.js",
+    "test": "node SimpleStaticServerTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neonblueflame/static-webserver.git"
+  },
+  "keywords": [],
+  "author": "neonblueflame",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neonblueflame/static-webserver/issues"
+  },
+  "homepage": "https://github.com/neonblueflame/static-webserver#readme"
+}

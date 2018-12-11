@@ -1,3 +1,10 @@
+/**
+* Mini static server made using Node.JS
+*
+* dateCreated: 20181105
+* dateModified: 20181109
+* version: 1.0.2
+*/
 function SimpleStaticServer() {
   "use strict";
   
@@ -8,6 +15,7 @@ function SimpleStaticServer() {
   const config = {
       "port": "9000"
     , "allowedMethods": ["GET"]
+    , "enableLogging": "true"
     , "routes": {
       "root": {
         "path": "/"
@@ -19,6 +27,11 @@ function SimpleStaticServer() {
     , "msg404": "404 error"
     , "msg500": "500 error"
   };
+  
+  function log(text) {
+    if (config["enableLogging"] == "true")
+      console.log(text);
+  }
   
   function send404Response(resp) {
     resp.write(config["msg404"]);
@@ -116,12 +129,12 @@ function SimpleStaticServer() {
   
     start: function() {
       server.listen(config["port"]);
-      console.log(config["msgStart"]);
+      log(config["msgStart"]);
       
       return server;
     }
     , end: function() {
-      console.log(config["msgExit"]);
+      log(config["msgExit"]);
       server.close();
     }
     
