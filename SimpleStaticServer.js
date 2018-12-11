@@ -2,8 +2,8 @@
 * Mini static server made using Node.JS
 *
 * dateCreated: 20181105
-* dateModified: 20181109
-* version: 1.0.2
+* dateModified: 20181211
+* version: 1.0.3
 */
 function SimpleStaticServer() {
   "use strict";
@@ -12,21 +12,7 @@ function SimpleStaticServer() {
   const http = require("http");
   const path = require("path");
   
-  const config = {
-      "port": "9000"
-    , "allowedMethods": ["GET"]
-    , "enableLogging": "true"
-    , "routes": {
-      "root": {
-        "path": "/"
-        , "resource": "./testText.txt"
-      }
-    } 
-    , "msgStart": "Server started"
-    , "msgExit": "Server destroyed"
-    , "msg404": "404 error"
-    , "msg500": "500 error"
-  };
+  const config = require("./package.json")["config"];
   
   function log(text) {
     if (config["enableLogging"] == "true")

@@ -7,6 +7,21 @@
     "start": "node Main.js",
     "test": "node SimpleStaticServerTest.js"
   },
+  "config": {
+    "port": "9000",
+    "allowedMethods": ["GET"],
+    "enableLogging": "true",
+    "routes": {
+      "root": {
+        "path": "/",
+        "resource": "./testText.txt"
+      }
+    },
+    "msgStart": "Server started",
+    "msgExit": "Server destroyed",
+    "msg404": "404 error",
+    "msg500": "500 error"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/neonblueflame/static-webserver.git"
